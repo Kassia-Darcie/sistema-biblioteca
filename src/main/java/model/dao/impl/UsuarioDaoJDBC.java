@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioDaoJDBC implements UsuarioDao {
-    private Connection conn;
+    private final Connection conn;
 
     public UsuarioDaoJDBC(Connection conn) {
         this.conn = conn;
@@ -53,7 +53,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
         try {
             ps = conn.prepareStatement("UPDATE usuario " +
                     "SET Nome = ?, Email = ?, Telefone = ?, DataNasc = ?, Endereco = ? " +
-                    "WHERE CpfUsuario = ?", Statement.RETURN_GENERATED_KEYS);
+                    "WHERE CpfUsuario = ?");
 
             ps.setString(1, obj.getNome());
             ps.setString(2, obj.getEmail());
@@ -87,7 +87,6 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
     @Override
     public Usuario findByCpf(String cpf) {
-        Usuario usuario = new Usuario();
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
