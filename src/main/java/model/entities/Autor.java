@@ -11,7 +11,7 @@ public class Autor implements Serializable {
     private int codAutor;
     private String nome;
 
-    public Autor(int codAutor, String nome) {
+    public Autor(Integer codAutor, String nome) {
         this.codAutor = codAutor;
         this.nome = nome;
     }

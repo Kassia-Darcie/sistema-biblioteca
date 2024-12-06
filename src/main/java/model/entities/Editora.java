@@ -11,7 +11,7 @@ public class Editora implements Serializable {
     private int codEditora;
     private String nome;
 
-    public Editora(int codEditora, String nome) {
+    public Editora(Integer codEditora, String nome) {
         this.codEditora = codEditora;
         this.nome = nome;
     }

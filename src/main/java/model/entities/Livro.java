@@ -16,9 +16,9 @@ public class Livro implements Serializable {
     private int anoPub;
     private List<Autor> autor;
     private Editora editora;
-    private Category categoria;
+    private Categoria categoria;
 
-    public Livro(int codLivro, String titulo, String isbn, int edicao, int anoPub, List<Autor> autor, Editora editora, Category categoria) {
+    public Livro(Integer codLivro, String titulo, String isbn, int edicao, int anoPub, List<Autor> autor, Editora editora, Categoria categoria) {
         this.codLivro = codLivro;
         this.titulo = titulo;
         this.isbn = isbn;
@@ -85,11 +85,11 @@ public class Livro implements Serializable {
         this.editora = editora;
     }
 
-    public Category getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Category categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
