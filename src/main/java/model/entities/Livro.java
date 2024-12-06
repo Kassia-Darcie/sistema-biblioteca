@@ -18,6 +18,9 @@ public class Livro implements Serializable {
     private Editora editora;
     private Categoria categoria;
 
+    public Livro() {
+    }
+
     public Livro(Integer codLivro, String titulo, String isbn, int edicao, int anoPub, List<Autor> autor, Editora editora, Categoria categoria) {
         this.codLivro = codLivro;
         this.titulo = titulo;

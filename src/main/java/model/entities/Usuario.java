@@ -16,6 +16,9 @@ public class Usuario implements Serializable {
     private LocalDate dataNasc;
     private String endereco;
 
+    public Usuario() {
+    }
+
     public Usuario(String cpf, String nome, String email, String telefone, LocalDate dataNasc, String endereco) {
         this.cpf = cpf;
         this.nome = nome;
