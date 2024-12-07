@@ -2,6 +2,7 @@ package model.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,22 +13,19 @@ public class Livro implements Serializable {
     private Integer codLivro;
     private String titulo;
     private String isbn;
-    private int edicao;
     private int anoPub;
-    private List<Autor> autor;
+    private List<Autor> autor = new ArrayList<>();
     private Editora editora;
     private Categoria categoria;
 
     public Livro() {
     }
 
-    public Livro(Integer codLivro, String titulo, String isbn, int edicao, int anoPub, List<Autor> autor, Editora editora, Categoria categoria) {
+    public Livro(Integer codLivro, String titulo, String isbn, int anoPub, Editora editora, Categoria categoria) {
         this.codLivro = codLivro;
         this.titulo = titulo;
         this.isbn = isbn;
-        this.edicao = edicao;
         this.anoPub = anoPub;
-        this.autor = autor;
         this.editora = editora;
         this.categoria = categoria;
     }
@@ -54,14 +52,6 @@ public class Livro implements Serializable {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
-    }
-
-    public int getEdicao() {
-        return edicao;
-    }
-
-    public void setEdicao(int edicao) {
-        this.edicao = edicao;
     }
 
     public int getAnoPub() {
@@ -115,7 +105,6 @@ public class Livro implements Serializable {
                 "codLivro=" + getCodLivro() +
                 ", titulo='" + getTitulo() + '\'' +
                 ", isbn='" + getIsbn() + '\'' +
-                ", edicao=" + getEdicao() +
                 ", anoPub=" + getAnoPub() +
                 ", autor=" + getAutor() +
                 ", editora=" + getEditora() +

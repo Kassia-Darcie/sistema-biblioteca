@@ -22,14 +22,13 @@ public class LivroDaoJDBC implements LivroDao {
         PreparedStatement ps = null;
 
         try {
-            ps = conn.prepareStatement("INSERT INTO livro (Titulo, Isbn, Edicao, AnoPub, CodCat, CodEditora)" +
-                    "VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = conn.prepareStatement("INSERT INTO livro (Titulo, Isbn, AnoPub, CodCat, CodEditora)" +
+                    "VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, obj.getTitulo());
             ps.setString(2, obj.getIsbn());
-            ps.setInt(3, obj.getEdicao());
-            ps.setInt(4, obj.getAnoPub());
-            ps.setInt(5, obj.getCategoria().getCodCat());
-            ps.setInt(6, obj.getEditora().getCodEditora());
+            ps.setInt(3, obj.getAnoPub());
+            ps.setInt(4, obj.getCategoria().getCodCat());
+            ps.setInt(5, obj.getEditora().getCodEditora());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -44,7 +43,6 @@ public class LivroDaoJDBC implements LivroDao {
                     ps.setInt(1, obj.getCodLivro());
                     ps.setInt(2, autor.getCodAutor());
                     ps.executeUpdate();
-                    System.out.println(autor);
                 }
             } else {
                 throw new DbException("Erro ao inserir livro");
@@ -62,16 +60,15 @@ public class LivroDaoJDBC implements LivroDao {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("UPDATE livro " +
-                    "SET Titulo = ?, Isbn = ?, Edicao = ?, AnoPub = ?, CodCat = ?, CodEditora = ? " +
+                    "SET Titulo = ?, Isbn = ?, AnoPub = ?, CodCat = ?, CodEditora = ? " +
                     "WHERE CodLivro = ?");
 
             ps.setString(1, obj.getTitulo());
             ps.setString(2, obj.getIsbn());
-            ps.setInt(3, obj.getEdicao());
-            ps.setInt(4, obj.getAnoPub());
-            ps.setInt(5, obj.getCategoria().getCodCat());
-            ps.setInt(6, obj.getEditora().getCodEditora());
-            ps.setInt(7, obj.getCodLivro());
+            ps.setInt(3, obj.getAnoPub());
+            ps.setInt(4, obj.getCategoria().getCodCat());
+            ps.setInt(5, obj.getEditora().getCodEditora());
+            ps.setInt(6, obj.getCodLivro());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -127,12 +124,9 @@ public class LivroDaoJDBC implements LivroDao {
         livro.setCodLivro(rs.getInt("CodLivro"));
         livro.setTitulo(rs.getString("Titulo"));
         livro.setIsbn(rs.getString("Isbn"));
-        livro.setEdicao(rs.getInt("Edicao"));
         livro.setAnoPub(rs.getInt("AnoPub"));
         livro.setCategoria(cat);
         livro.setEditora(editora);
         return livro;
     }
-
-
 }
