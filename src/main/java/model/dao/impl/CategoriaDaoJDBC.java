@@ -91,6 +91,26 @@ public class CategoriaDaoJDBC implements CategoriaDao {
     }
 
     @Override
+    public Categoria findByNome(String nome) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement("SELECT * FROM categoria WHERE Nome = ?");
+            ps.setString(1, nome);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return instantiateCategoria(rs);
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DB.closeStatment(ps);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
     public List<Categoria> findAll() {
         PreparedStatement ps = null;
         ResultSet rs = null;

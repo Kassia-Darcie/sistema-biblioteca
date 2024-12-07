@@ -9,5 +9,7 @@ public interface CategoriaDao {
     void update(Categoria obj);
     void deleteById(int id);
     Categoria findById(int id);
+    Categoria findByNome(String nome);
     List<Categoria> findAll();
+
 }

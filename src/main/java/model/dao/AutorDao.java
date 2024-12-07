@@ -9,5 +9,6 @@ public interface AutorDao {
     void update(Autor obj);
     void deleteById(int id);
     Autor findById(int id);
+    Autor findByNome(String nome);
     List<Autor> findAll();
 }

@@ -9,5 +9,6 @@ public interface EditoraDao {
     void update(Editora obj);
     void deleteById(int id);
     Editora findById(int id);
+    Editora findByNome(String nome);
     List<Editora> findAll();
 }

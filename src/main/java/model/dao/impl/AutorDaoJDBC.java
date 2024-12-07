@@ -93,6 +93,26 @@ public class AutorDaoJDBC implements AutorDao {
     }
 
     @Override
+    public Autor findByNome(String nome) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement("SELECT * FROM autor WHERE Nome = ?");
+            ps.setString(1, nome);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return instantiateAutor(rs);
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DB.closeStatment(ps);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
     public List<Autor> findAll() {
         PreparedStatement ps = null;
         ResultSet rs = null;
