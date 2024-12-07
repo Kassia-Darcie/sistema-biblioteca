@@ -9,7 +9,7 @@ public class Livro implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private int codLivro;
+    private Integer codLivro;
     private String titulo;
     private String isbn;
     private int edicao;
@@ -32,7 +32,7 @@ public class Livro implements Serializable {
         this.categoria = categoria;
     }
 
-    public int getCodLivro() {
+    public Integer getCodLivro() {
         return codLivro;
     }
 

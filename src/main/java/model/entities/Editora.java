@@ -8,7 +8,7 @@ public class Editora implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private int codEditora;
+    private Integer codEditora;
     private String nome;
 
     public Editora() {
@@ -19,7 +19,7 @@ public class Editora implements Serializable {
         this.nome = nome;
     }
 
-    public int getCodEditora() {
+    public Integer getCodEditora() {
         return codEditora;
     }
 

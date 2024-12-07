@@ -8,7 +8,7 @@ public class Autor implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private int codAutor;
+    private Integer codAutor;
     private String nome;
 
     public Autor() {
@@ -19,7 +19,7 @@ public class Autor implements Serializable {
         this.nome = nome;
     }
 
-    public int getCodAutor() {
+    public Integer getCodAutor() {
         return codAutor;
     }
 

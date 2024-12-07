@@ -8,7 +8,7 @@ public class Categoria implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private int codCat;
+    private Integer codCat;
     private String nome;
 
     public Categoria() {
@@ -19,7 +19,7 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
-    public int getCodCat() {
+    public Integer getCodCat() {
         return codCat;
     }
 
