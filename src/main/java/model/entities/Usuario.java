@@ -3,11 +3,14 @@ package model.entities;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Usuario implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+    private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 
     private String cpf;
     private String nome;
@@ -19,12 +22,12 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String cpf, String nome, String email, String telefone, LocalDate dataNasc, String endereco) {
+    public Usuario(String cpf, String nome, String email, String telefone, String dataNasc, String endereco) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
-        this.dataNasc = dataNasc;
+        this.dataNasc = LocalDate.parse(dataNasc, fmt);
         this.endereco = endereco;
     }
 
@@ -64,8 +67,8 @@ public class Usuario implements Serializable {
         return dataNasc;
     }
 
-    public void setDataNasc(LocalDate dataNasc) {
-        this.dataNasc = dataNasc;
+    public void setDataNasc(LocalDate data) {
+        this.dataNasc = data;
     }
 
     public String getEndereco() {
