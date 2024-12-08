@@ -11,6 +11,8 @@ import java.util.List;
 
 public class UsuarioDaoJDBC implements UsuarioDao {
     private final Connection conn;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
 
     public UsuarioDaoJDBC(Connection conn) {
         this.conn = conn;
@@ -18,7 +20,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
     @Override
     public void insert(Usuario obj) {
-        PreparedStatement ps = null;
+        
         try {
             ps = conn.prepareStatement("INSERT INTO usuario (CpfUsuario, Nome, Email, Telefone, DataNasc, Endereco)" +
                     "VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
@@ -49,7 +51,6 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
     @Override
     public void update(Usuario obj) {
-        PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("UPDATE usuario " +
                     "SET Nome = ?, Email = ?, Telefone = ?, DataNasc = ?, Endereco = ? " +
@@ -72,7 +73,6 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
     @Override
     public void deleteByCpf(String cpf) {
-        PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("DELETE FROM usuario WHERE CpfUsuario = ?");
             ps.setString(1, cpf);
@@ -87,8 +87,6 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
     @Override
     public Usuario findByCpf(String cpf) {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("SELECT * FROM usuario WHERE usuario.CpfUsuario = ?");
             ps.setString(1, cpf);
@@ -118,10 +116,27 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
     @Override
     public List<Usuario> findAll() {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             ps = conn.prepareStatement("SELECT * FROM usuario ORDER BY Nome");
+            rs = ps.executeQuery();
+            List<Usuario> usuarios = new ArrayList<>();
+            while (rs.next()) {
+                usuarios.add(instantiateUsuario(rs));
+            }
+            return usuarios;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatment(ps);
+            DB.closeResultSet(rs);
+        }
+    }
+    
+    @Override
+    public List<Usuario> searchByCpfOrNome(String txt) {
+        try {
+            String sql = String.format("SELECT * FROM usuario WHERE REGEXP_LIKE(usuario.CpfUsuario, '^%s') = 1 OR REGEXP_LIKE(usuario.Nome, '^%s') = 1", txt, txt);
+            ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             List<Usuario> usuarios = new ArrayList<>();
             while (rs.next()) {
