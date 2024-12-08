@@ -12,44 +12,39 @@ public class Biblioteca {
     private EditoraDao editoraDao = DaoFactory.createEditoraDao();
     private AutorDao autorDao = DaoFactory.createAutorDao();
     private LivroDao livroDao = DaoFactory.createLivroDao();
+    
+    private List<Usuario> usuarios;
 
-    public void registerUsuario() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Cpf: ");
-        String cpf = sc.next();
-        System.out.print("Nome: ");
-        sc.nextLine();
-        String nome = sc.nextLine();
-        System.out.print("Email: ");
-        String email = sc.next();
-        System.out.print("Telefone: ");
-        String telefone = sc.next();
-        System.out.print("Data de nascimento: ");
-        LocalDate nascimento = LocalDate.parse(sc.next());
-        System.out.print("Endereço: ");
-        sc.nextLine();
-        String endereco = sc.nextLine();
-        Usuario usuario = new Usuario(cpf, nome, email, telefone, nascimento, endereco);
+    public Biblioteca() {
+        usuarios = usuarioDao.findAll();
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+    
+    
+
+    public void registerUsuario(Usuario usuario) {
         usuarioDao.insert(usuario);
-        System.out.println(usuario);
-        sc.close();
     }
 
-    public void updateUsuario(String cpf, String nome, String email, String telefone, LocalDate nascimento, String endereco) {
-        Usuario usuario = usuarioDao.findByCpf(cpf);
-        usuario.setNome(nome);
-        usuario.setEmail(email);
-        usuario.setTelefone(telefone);
-        usuario.setDataNasc(nascimento);
-        usuario.setEndereco(endereco);
-        usuarioDao.update(usuario);
+    public void updateUsuario(Usuario usuario) {
+        Usuario u = usuarioDao.findByCpf(usuario.getCpf());
+        u.setNome(usuario.getNome());
+        u.setEmail(usuario.getEmail());
+        u.setTelefone(usuario.getTelefone());
+        u.setDataNasc(usuario.getDataNasc());
+        u.setEndereco(usuario.getEndereco());
+        usuarioDao.update(u);
     }
 
-    public void listAllUser() {
-        List<Usuario> usuarios = usuarioDao.findAll();
-        for (Usuario usuario : usuarios) {
-            System.out.println(usuario);
-        }
+    public List<Usuario> listAllUser() {
+        return usuarioDao.findAll();
     }
 
     public void registerLivro (Livro livro) {
@@ -76,5 +71,13 @@ public class Biblioteca {
             }
         }
         livroDao.insert(livro);
+    }
+    
+    public List<Usuario> searchUser(String text) {
+        return usuarioDao.searchByCpfOrNome(text);
+    }
+    
+    public void deleteUser(String cpf) {
+        usuarioDao.deleteByCpf(cpf);
     }
 }
