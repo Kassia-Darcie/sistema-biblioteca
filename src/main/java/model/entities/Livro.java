@@ -15,6 +15,7 @@ public class Livro implements Serializable {
     private String isbn;
     private int anoPub;
     private List<Autor> autor = new ArrayList<>();
+    private String nomesAutores;
     private Editora editora;
     private Categoria categoria;
 
@@ -29,12 +30,21 @@ public class Livro implements Serializable {
         this.editora = editora;
         this.categoria = categoria;
     }
+    
+    public Livro(String titulo, String isbn, int anoPub, Editora editora, Categoria categoria) {
+        this.codLivro = null;
+        this.titulo = titulo;
+        this.isbn = isbn;
+        this.anoPub = anoPub;
+        this.editora = editora;
+        this.categoria = categoria;
+    }
 
     public Integer getCodLivro() {
         return codLivro;
     }
 
-    public void setCodLivro(int codLivro) {
+    public void setCodLivro(Integer codLivro) {
         this.codLivro = codLivro;
     }
 
@@ -68,6 +78,14 @@ public class Livro implements Serializable {
 
     public void setAutor(List<Autor> autor) {
         this.autor = autor;
+    }
+    
+    public String getNomesAutores() {
+        return nomesAutores;
+    }
+
+    public void setNomesAutores(String nomesAutores) {
+        this.nomesAutores = nomesAutores;
     }
 
     public Editora getEditora() {
@@ -111,4 +129,6 @@ public class Livro implements Serializable {
                 ", categoria=" + getCategoria() +
                 '}';
     }
+
+    
 }

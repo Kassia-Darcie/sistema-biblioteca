@@ -13,7 +13,7 @@
                 <exec.vmArgs></exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.appArgs></exec.appArgs>
-                <exec.mainClass>application.gui.MainView</exec.mainClass>
+                <exec.mainClass>view.MainView</exec.mainClass>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>

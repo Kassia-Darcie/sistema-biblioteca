@@ -5,6 +5,7 @@ import model.dao.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Biblioteca {
     private UsuarioDao usuarioDao = DaoFactory.createUsuarioDao();
@@ -73,11 +74,38 @@ public class Biblioteca {
         livroDao.insert(livro);
     }
     
+    public Usuario searchUserByCpf(String cpf) {
+        if (cpf.length() == 11) {
+            return usuarioDao.findByCpf(cpf);
+            
+        } else {
+            JOptionPane diag = new JOptionPane("Cpf invalido");
+            diag.setVisible(true);
+        }
+        return  null;
+    }
+    
     public List<Usuario> searchUser(String text) {
         return usuarioDao.searchByCpfOrNome(text);
     }
     
+    public List<Livro> searchBook(String txt) {
+        return livroDao.searchByIsbnOrTitulo(txt);
+    }
+    
+    public Livro findBookById(int id) {
+        return livroDao.findById(id);
+    }
+    
     public void deleteUser(String cpf) {
         usuarioDao.deleteByCpf(cpf);
+    }
+    
+    public List<Emprestimo> obterEmprestimosAssociadosAUmLivro(int idLivro) {
+        return livroDao.obterEmprestimoAssociado(idLivro);
+    }
+    
+    public int getTotalEmprestimosUsuario(String cpf) {
+        return usuarioDao.getTotalEmprestimos(cpf);
     }
 }

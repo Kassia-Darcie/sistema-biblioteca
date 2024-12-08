@@ -23,4 +23,8 @@ public class DaoFactory {
     public static EditoraDao createEditoraDao() {
         return new EditoraDaoJDBC(DB.getConnection());
     }
+    
+    public static EmprestimoDao createEmprestimoDao() {
+        return new EmprestimoDaoJDBC(DB.getConnection());
+    }
 }

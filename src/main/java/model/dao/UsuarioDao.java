@@ -11,4 +11,5 @@ public interface UsuarioDao {
     Usuario findByCpf(String cpf);
     List<Usuario> findAll();
     List<Usuario> searchByCpfOrNome(String txt);
+    int getTotalEmprestimos(String cpf);
 }

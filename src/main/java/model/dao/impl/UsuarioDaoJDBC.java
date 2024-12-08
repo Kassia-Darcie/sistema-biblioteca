@@ -150,4 +150,29 @@ public class UsuarioDaoJDBC implements UsuarioDao {
             DB.closeResultSet(rs);
         }
     }
+
+    @Override
+    public int getTotalEmprestimos(String cpf) {
+        String sql = "SELECT usuario.CpfUsuario, usuario.Nome,\n" +
+            "(SELECT COUNT(*) \n" +
+            "FROM emprestimo\n" +
+            "WHERE emprestimo.CpfUsuario = ?) AS TotalEmprestimos\n" +
+            "FROM usuario;";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, cpf);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("TotalEmprestimos");
+            }
+            return 0;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatment(ps);
+            DB.closeResultSet(rs);
+        }
+    }
+    
+    
 }
